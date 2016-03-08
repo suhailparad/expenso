@@ -1,5 +1,9 @@
 @extends('layout.app')
 
 @section('content')
-    <h3>Welcome to EXPENSO 1.0</h3>
+    <div class="container">
+        <div class="col-sm-12">
+                123
+        </div>
+    </div>
 @endsection
