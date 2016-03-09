@@ -24,23 +24,9 @@ Route::get('add',function(){
     return View::make('add');
 });
 
-Route::post('/addex',function(Request $request){
-    
-    $expense=new Expense;
-    $expense->expense=$request->descr;
-    $expense->edate=$request->edate;
-    $expense->amount=$request->amount;
-    
-    $expense->save();
-    
-    return redirect('/');
-});
+Route::post('/addex','ExpensesController@create');
 
-Route::get('/view',function(){
-    return view('view',[
-        'expense'=>Expense::orderBy('edate','desc')->get()
-    ]);
-});
+Route::get('/view','ExpensesController@view');
 
 Route::delete('/view/delete/{id}',function($id){
     Expense::findOrFail($id)->delete();
@@ -50,5 +36,4 @@ Route::post('/view/search',function(Request $request){
     return view('view',[
         'expense'=>Expense::whereBetween('edate', [$request->efrom, $request->eto])->orderBy('id','desc')->get()
     ]);
-   // return $request->from;
 });
