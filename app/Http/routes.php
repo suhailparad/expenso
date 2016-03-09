@@ -19,9 +19,11 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('add',function(){
     return View::make('add');
 });
+
 Route::post('/addex',function(Request $request){
     
     $expense=new Expense;
@@ -33,12 +35,20 @@ Route::post('/addex',function(Request $request){
     
     return redirect('/');
 });
+
 Route::get('/view',function(){
     return view('view',[
-        'expense'=>Expense::orderBy('id','desc')->get()
+        'expense'=>Expense::orderBy('edate','desc')->get()
     ]);
 });
-Route::delete('/view/{id}',function($id){
+
+Route::delete('/view/delete/{id}',function($id){
     Expense::findOrFail($id)->delete();
     return redirect ('/view');
+});
+Route::post('/view/search',function(Request $request){
+    return view('view',[
+        'expense'=>Expense::whereBetween('edate', [$request->efrom, $request->eto])->orderBy('id','desc')->get()
+    ]);
+   // return $request->from;
 });
