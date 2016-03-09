@@ -14,6 +14,8 @@
 use App\Expense;
 use Illuminate\Http\Request;
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,4 +32,13 @@ Route::post('/addex',function(Request $request){
     $expense->save();
     
     return redirect('/');
+});
+Route::get('/view',function(){
+    return view('view',[
+        'expense'=>Expense::orderBy('id','desc')->get()
+    ]);
+});
+Route::delete('/view/{id}',function($id){
+    Expense::findOrFail($id)->delete();
+    return redirect ('/view');
 });

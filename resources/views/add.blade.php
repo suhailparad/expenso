@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('title','Add Expenso')
+
 @section('content')
     <div class="container">
         <div class="col-sm-12">
